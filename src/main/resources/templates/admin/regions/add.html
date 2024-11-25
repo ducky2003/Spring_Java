@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add Region</title>
+    <style>
+        /* Google Font */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        body {
+            background: linear-gradient(120deg, #89f7fe, #66a6ff);
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: #fff;
+            border-radius: 15px;
+            padding: 30px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #444;
+        }
+
+        .form-control {
+            border-radius: 10px;
+            padding: 10px;
+        }
+
+        .img-preview {
+            display: block;
+            max-width: 200px;
+            max-height: 200px;
+            margin: 10px auto;
+            object-fit: cover;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+        }
+
+        .btn-submit {
+            display: inline-block;
+            background: #4caf50;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease-in-out;
+            margin-top: 20px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .btn-submit:hover {
+            background: #45a049;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Add Region</h1>
+    <form th:action="@{/admin/regions/add}" method="post" enctype="multipart/form-data">
+        <!-- Tên vùng miền -->
+        <div class="mb-3">
+            <label for="regionName" class="form-label">Region Name</label>
+            <input type="text" name="regionName" id="regionName" class="form-control" placeholder="Enter region name" required>
+        </div>
+        <!-- Mô tả -->
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea name="description" id="description" rows="4" class="form-control" placeholder="Enter description"></textarea>
+        </div>
+        <!-- Xem trước ảnh -->
+        <div class="mb-3 text-center">
+            <img id="imagePreview" src="#" alt="Image Preview" class="img-preview" style="display: none;">
+        </div>
+        <!-- Tải ảnh -->
+        <div class="mb-3">
+            <label for="file" class="form-label">Upload Image</label>
+            <input type="file" name="file" id="file" class="form-control" accept="image/*" onchange="previewImage(event)">
+        </div>
+        <!-- Nút gửi -->
+        <button type="submit" class="btn-submit">Add Region</button>
+    </form>
+</div>
+
+<script>
+    function previewImage(event) {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+            const imagePreview = document.getElementById('imagePreview');
+            imagePreview.src = e.target.result;
+            imagePreview.style.display = 'block';
+        };
+
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    }
+</script>
+</body>
+</html>

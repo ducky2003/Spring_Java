@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Region</title>
+    <style>
+        /* Google Font */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        /* Reset and Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(120deg, #89f7fe, #66a6ff);
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: #fff;
+            border-radius: 15px;
+            padding: 30px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #444;
+        }
+
+        .btn-submit {
+            display: inline-block;
+            background: #ffa000;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease-in-out;
+            margin-top: 20px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .btn-submit:hover {
+            background: #ff8c00;
+        }
+
+        .form-label {
+            font-weight: 600;
+        }
+
+        .form-control {
+            border-radius: 10px;
+            padding: 10px;
+        }
+
+        .form-control-file {
+            border: 1px solid #ccc;
+            padding: 8px;
+            border-radius: 10px;
+        }
+
+        .img-thumbnail {
+            display: block;
+            max-width: 150px;
+            margin: 10px auto;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Edit Region</h1>
+    <form th:action="@{/admin/regions/edit/{id}(id=${region.id})}" method="post" enctype="multipart/form-data">
+        <!-- Tên vùng miền -->
+        <div class="mb-3">
+            <label for="regionName" class="form-label">Region Name</label>
+            <input type="text" name="regionName" id="regionName" class="form-control" th:value="${region.regionName}" required>
+        </div>
+        <!-- Mô tả -->
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea name="description" id="description" rows="4" class="form-control" th:text="${region.description}"></textarea>
+        </div>
+        <!-- Ảnh hiện tại -->
+        <div class="text-center">
+            <img th:src="@{/fe/img/{img}(img=${region.image})}" alt="Region Image" class="img-thumbnail">
+        </div>
+        <div class="mb-3 text-center">
+            <img id="imagePreview" src="#" alt="Image Preview" class="img-preview" style="display: none;">
+        </div>
+        <!-- Tải lên ảnh mới -->
+        <div class="mb-3">
+            <label for="file" class="form-label">Upload New Image</label>
+            <input type="file" name="file" id="file" class="form-control-file" accept="image/*" onchange="previewImage(event)">
+        </div>
+        <!-- Nút gửi -->
+        <button type="submit" class="btn-submit">Update Region</button>
+    </form>
+</div>
+<script>
+    function previewImage(event) {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+            const imagePreview = document.getElementById('imagePreview');
+            imagePreview.src = e.target.result;
+            imagePreview.style.display = 'block';
+        };
+
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    }
+</script>
+</body>
+</html>

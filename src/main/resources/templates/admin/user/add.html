@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add User</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        body {
+            background: linear-gradient(120deg, #89f7fe, #66a6ff);
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .form-container {
+            background: #fff;
+            border-radius: 15px;
+            padding: 30px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #444;
+        }
+
+        form label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: 500;
+        }
+
+        form input, form button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            outline: none;
+            font-size: 14px;
+        }
+
+        form input:focus {
+            border-color: #89f7fe;
+        }
+
+        form button {
+            background: #66a6ff;
+            color: #fff;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+            border: none;
+        }
+
+        form button:hover {
+            background: #589ad8;
+        }
+
+        .btn-cancel {
+            display: inline-block;
+            background: #ccc;
+            color: #333;
+            text-align: center;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .btn-cancel:hover {
+            background: #bbb;
+        }
+    </style>
+</head>
+<body>
+<div class="form-container">
+    <h1>Add User</h1>
+    <form th:action="@{/admin/users/add}" method="post">
+        <label for="fullName">Full Name</label>
+        <input type="text" id="fullName" name="fullName" placeholder="Enter full name" required>
+
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="Enter email" required>
+
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Enter password" required>
+
+        <button type="submit">Add</button>
+        <a href="/admin/users" class="btn-cancel">Cancel</a>
+    </form>
+</div>
+</body>
+</html>
