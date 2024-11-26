@@ -38,7 +38,8 @@ public class Membershipplan {
     @ColumnDefault("CURRENT_TIMESTAMP")
     @Column(name = "Created_At")
     private Instant createdAt;
-
+    @Column(name = "image")
+    private String image;
     @ColumnDefault("CURRENT_TIMESTAMP")
     @Column(name = "Updated_At")
     private Instant updatedAt;
@@ -46,7 +47,7 @@ public class Membershipplan {
     public Membershipplan(){
         super();
     }
-    public Membershipplan(Integer id, String name, String description, BigDecimal monthlyFee, BigDecimal discountRate, Integer maxBookingsPerMonth, Instant createdAt, Instant updatedAt) {
+    public Membershipplan(Integer id, String name, String description, BigDecimal monthlyFee, BigDecimal discountRate, Integer maxBookingsPerMonth, Instant createdAt, Instant updatedAt,String image) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -55,6 +56,15 @@ public class Membershipplan {
         this.maxBookingsPerMonth = maxBookingsPerMonth;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.image = image;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public Integer getId() {
