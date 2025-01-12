@@ -4,7 +4,6 @@ package com.vinhuni.booking.service.admin;
 import com.vinhuni.booking.model.user.User;
 import com.vinhuni.booking.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,7 +18,7 @@ public class AdminUserService {
     }
 
     public void saveUser(User user) {
-        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+
         userRepository.save(user);
     }
 
@@ -31,9 +30,7 @@ public class AdminUserService {
         User existingUser = getUserById(id);
         existingUser.setEmail(updatedUser.getEmail());
         existingUser.setFullName(updatedUser.getFullName());
-        if (!updatedUser.getPassword().isEmpty()) {
-            existingUser.setPassword(new BCryptPasswordEncoder().encode(updatedUser.getPassword()));
-        }
+
         userRepository.save(existingUser);
     }
 

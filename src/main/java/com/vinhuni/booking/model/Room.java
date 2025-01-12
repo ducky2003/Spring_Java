@@ -4,8 +4,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import java.math.BigDecimal;
 
@@ -16,66 +14,69 @@ import java.math.BigDecimal;
 public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "RoomID", nullable = false)
-    private Integer id;
+    @Column(name = "room_id", nullable = false)
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "HotelID", nullable = false)
-    private Hotel hotelID;
+    @JoinColumn(name = "hotel_id", nullable = false)
+    private Hotel hotel;
 
-    @Column(name = "RoomNumber", nullable = false, length = 20)
+    @Column(name = "room_number", nullable = false, length = 20)
     private String roomNumber;
 
-    @Lob
-    @Column(name = "Type", nullable = false)
-    private String type;
+    @Column(name = "room_type", length = 100)
+    private String roomType;
 
-    @Column(name = "Price", nullable = false, precision = 10, scale = 2)
+    @Column(name = "price", nullable = false, precision = 10, scale = 2)
     private BigDecimal price;
 
-    @Lob
-    @Column(name = "Description")
-    private String description;
-
-    @ColumnDefault("1")
-    @Column(name = "IsAvailable")
-    private Boolean isAvailable;
+    @Column(name = "image_url", nullable = true)
+    private String imageUrl;
 
     @Column(name = "area")
     private Double area;
 
+    @Lob
+    @Column(name = "description")
+    private String description;
+
     @Column(name = "floor")
     private Integer floor;
-    public Room(){
-        super();
-    }
-    public Room(Integer id, Hotel hotelID, String roomNumber, String type, BigDecimal price, String description, Boolean isAvailable, Double area, Integer floor) {
-        this.id = id;
-        this.hotelID = hotelID;
-        this.roomNumber = roomNumber;
-        this.type = type;
-        this.price = price;
-        this.description = description;
-        this.isAvailable = isAvailable;
-        this.area = area;
-        this.floor = floor;
+
+    @ColumnDefault("b'1'")
+    @Column(name = "is_available")
+    private Boolean isAvailable;
+
+    public Room() {
     }
 
-    public Integer getId() {
+    public Room(Long id, Hotel hotel, String roomNumber, String roomType, BigDecimal price, String imageUrl, Double area, String description, Integer floor, Boolean isAvailable) {
+        this.id = id;
+        this.hotel = hotel;
+        this.roomNumber = roomNumber;
+        this.roomType = roomType;
+        this.price = price;
+        this.imageUrl = imageUrl;
+        this.area = area;
+        this.description = description;
+        this.floor = floor;
+        this.isAvailable = isAvailable;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Hotel getHotelID() {
-        return hotelID;
+    public Hotel getHotel() {
+        return hotel;
     }
 
-    public void setHotelID(Hotel hotelID) {
-        this.hotelID = hotelID;
+    public void setHotel(Hotel hotel) {
+        this.hotel = hotel;
     }
 
     public String getRoomNumber() {
@@ -86,12 +87,12 @@ public class Room {
         this.roomNumber = roomNumber;
     }
 
-    public String getType() {
-        return type;
+    public String getRoomType() {
+        return roomType;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setRoomType(String roomType) {
+        this.roomType = roomType;
     }
 
     public BigDecimal getPrice() {
@@ -102,20 +103,12 @@ public class Room {
         this.price = price;
     }
 
-    public String getDescription() {
-        return description;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Boolean getAvailable() {
-        return isAvailable;
-    }
-
-    public void setAvailable(Boolean available) {
-        isAvailable = available;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public Double getArea() {
@@ -126,6 +119,14 @@ public class Room {
         this.area = area;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public Integer getFloor() {
         return floor;
     }
@@ -133,4 +134,13 @@ public class Room {
     public void setFloor(Integer floor) {
         this.floor = floor;
     }
+
+    public Boolean getAvailable() {
+        return isAvailable;
+    }
+
+    public void setAvailable(Boolean available) {
+        isAvailable = available;
+    }
+
 }

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/head::head"></head>
+<body>
+<div th:replace="layout/topbar::topbar"></div>
+<div th:replace="layout/navbar::navbar"></div>
+
+<div class="container py-5">
+    <!-- Tiêu đề khách sạn -->
+    <h1 class="mb-4" th:text="${hotel.hotelName}">Tên khách sạn</h1>
+    <p class="mb-4" th:text="${hotel.description}">Mô tả khách sạn</p>
+
+    <div class="row">
+        <!-- Bài viết chính -->
+        <div class="col-lg-8">
+            <div class="card mb-4">
+                <img th:src="@{/fe/img/{img}(img=${mainArticle.image})}"  class="card-img-top" alt="Main Article Image">
+                <div class="card-body">
+                    <h2 class="card-title" th:utext="${mainArticle.title}">Tiêu đề bài viết</h2>
+                    <p class="card-text" th:utext="${mainArticle.content}">Nội dung bài viết</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <h3>Bài viết khác</h3>
+            <div class="list-group">
+                <a th:each="post : ${recentPosts}"
+                   th:href="@{/hotels/{hotelId}/articles(articleId=${post.id}, hotelId=${hotel.id})}"
+                   class="list-group-item list-group-item-action">
+                    <img th:src="@{/fe/img/{img}(img=${post.image})}" class="img-fluid rounded mb-2" alt="Post Image" style="height: 100px; object-fit: cover;">
+                    <h6 th:text="${post.title}">Tiêu đề bài viết</h6>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="layout/footer::footer"></div>
+</body>
+</html>

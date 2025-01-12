@@ -21,11 +21,7 @@
             <label for="price" class="form-label">Giá</label>
             <input type="number" id="price" name="price" class="form-control" step="0.01" th:value="${service.price}" required>
         </div>
-        <div class="mb-3">
-            <label for="icon" class="form-label">Biểu tượng (Icon)</label>
-            <input type="text" id="icon" name="icon" class="form-control" th:value="${service.icon}">
-            <small class="text-muted">Ví dụ: fa-spa, fa-dumbbell, fa-wifi</small>
-        </div>
+
         <button type="submit" class="btn btn-success">Lưu</button>
         <a href="/admin/services" class="btn btn-secondary">Hủy</a>
     </form>

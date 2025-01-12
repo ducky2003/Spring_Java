@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/head::head"></head>
+<body>
+<div th:replace="layout/topbar::topbar"></div>
+<div th:replace="layout/navbar::navbar"></div>
+
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-6">
+            <!-- Hình ảnh khách sạn -->
+            <img th:src="@{/fe/img/{img}(img=${hotel.imageUrl})}" class="img-fluid rounded" alt="Hotel Image">
+        </div>
+        <div class="col-md-6">
+            <h2 th:text="${hotel.hotelName}">Hotel Name</h2>
+            <p th:text="${hotel.description}">Hotel Description</p>
+            <p><strong>Địa chỉ:</strong> <span th:text="${hotel.location}">City</span></p>
+            <p><strong>Đánh giá:</strong> <span th:text="${hotel.rating}">Phone Number</span></p>
+            <p><strong>Vùng:</strong> <span th:text="${hotel.region.regionName}">Email</span></p>
+            <a th:href="@{/rooms/detail/{hotelId}(hotelId=${hotel.id})}" class="btn btn-primary mt-3">Xem phòng</a>
+        </div>
+    </div>
+</div>
+
+<div th:replace="layout/footer::footer"></div>
+</body>
+</html>

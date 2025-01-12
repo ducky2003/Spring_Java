@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/head::head">
+</head>
+<body>
+<div th:replace="layout/topbar::topbar"></div>
+<div th:replace="layout/navbar::navbar"></div>
+
+<div class="container py-5">
+    <h1>Booking Room</h1>
+
+    <div class="row">
+        <div class="col-md-6">
+            <img th:if="${room != null}" th:src="@{/fe/img/{img}(img=${room?.imageUrl})}" class="img-fluid" alt="Room Image" />
+        </div>
+
+        <div class="col-md-6">
+            <form action="#" th:action="@{/rooms/booking/{roomId}(roomId=${room.id})}" method="post" id="bookingForm">
+                <input type="hidden" name="roomId" th:value="${room.id}">
+                <div>
+                    <h3 th:text="${room.roomType}">Room Type</h3>
+                    <p th:text="${room.description}">Room description here.</p>
+                    <label for="pricePerDay">Price Per Day:</label>
+                    <input type="number" id="pricePerDay" th:value="${room.price}" readonly class="form-control mb-3" data-price="${room.price}">
+                </div>
+                <div>
+                    <label for="checkInDate">Check-in Date:</label>
+                    <input type="date" name="checkInDate" id="checkInDate" class="form-control mb-3" required>
+                </div>
+                <div>
+                    <label for="checkOutDate">Check-out Date:</label>
+                    <input type="date" name="checkOutDate" id="checkOutDate" class="form-control mb-3" required>
+                </div>
+
+               <div>
+                   <label for="totalPrice">Total Price:</label>
+                   <input type="hidden" name="totalPrice" id="totalPrice" readonly class="form-control mb-3">
+             </div>
+
+                <div id="dateError" class="text-danger" style="display: none;"></div>
+                <div id="checkInError" class="text-danger" style="display: none;"></div>
+                <div th:if="${errorMessage}" class="alert alert-danger" role="alert">
+                    <p th:text="${errorMessage}"></p>
+                </div>
+                <button type="submit" id="confirmBookingBtn" class="btn btn-primary" disabled>Confirm Booking</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById("checkInDate").addEventListener("change", updateTotalPrice);
+    document.getElementById("checkOutDate").addEventListener("change", updateTotalPrice);
+
+    function updateTotalPrice() {
+        const checkInDate = document.getElementById("checkInDate").value;
+        const checkOutDate = document.getElementById("checkOutDate").value;
+        const pricePerDay = parseFloat(document.getElementById("pricePerDay").getAttribute("data-price"));
+        const totalPriceField = document.getElementById("totalPrice");
+        const dateError = document.getElementById("dateError");
+        const checkInError = document.getElementById("checkInError");
+        const confirmBookingBtn = document.getElementById("confirmBookingBtn");
+        if (checkInDate && checkOutDate) {
+            const checkIn = new Date(checkInDate);
+            const checkOut = new Date(checkOutDate);
+            const currentDate = new Date();
+            if (checkIn < currentDate) {
+                checkInError.style.display = "block";
+                checkInError.textContent = "Check-in date cannot be in the past.";
+                totalPriceField.value = "";
+                confirmBookingBtn.disabled = true;
+                return;
+            } else {
+                checkInError.style.display = "none";
+            }
+            if (checkOut < checkIn) {
+                dateError.style.display = "block";
+                dateError.textContent = "Check-out date cannot be earlier than check-in date.";
+                totalPriceField.value = "";
+                confirmBookingBtn.disabled = true;
+            } else {
+                dateError.style.display = "none";
+                const timeDifference = checkOut - checkIn;
+                const days = timeDifference / (1000 * 3600 * 24);
+                if (days >= 1) {
+                    totalPriceField.value = (days * pricePerDay).toFixed(2);
+                    confirmBookingBtn.disabled = false;
+                } else {
+                    dateError.style.display = "block";
+                    dateError.textContent = "The duration must be at least one day.";
+                    totalPriceField.value = "";
+                    confirmBookingBtn.disabled = true;
+                }
+            }
+        } else {
+            dateError.style.display = "none";
+            checkInError.style.display = "none";
+            totalPriceField.value = "";
+            confirmBookingBtn.disabled = true;
+        }
+    }
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

@@ -13,10 +13,10 @@ import java.util.Objects;
 @Embeddable
 public class UserRoleId implements java.io.Serializable {
     private static final long serialVersionUID = -2890201004936256508L;
-    @Column(name = "UserId", nullable = false)
+    @Column(name = "User_Id", nullable = false)
     private Integer userId;
 
-    @Column(name = "RoleId", nullable = false)
+    @Column(name = "Role_Id", nullable = false)
     private Integer roleId;
 
     @Override

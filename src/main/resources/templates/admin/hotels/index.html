@@ -1,0 +1,86 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin/fragments/head::head">
+    <title>Manage Hotel</title>
+</head>
+<body id="page-top">
+<div id="wrapper">
+    <ul th:replace="admin/fragments/sidebar :: sidebar"></ul>
+    <div id="content-wrapper" class="d-flex flex-column">
+        <div id="content">
+            <div th:replace="admin/fragments/header::header"></div>
+            <div class="container-fluid">
+                <h1>Quản lý khách sạn</h1>
+                <a href="/admin/hotels/add" class="btn-add">Thêm mới</a>
+                <form action="#" th:action="@{/admin/hotels}" method="get" class="d-flex mb-3">
+                    <select name="searchBy" class="form-select w-auto" style="height: 39px; text-align: center
+                        ; border-radius: 7px" th:value="${searchBy}">
+                        <option value="name" th:selected="${searchBy == 'name'}">Tên khách sạn</option>
+                        <option value="location" th:selected="${searchBy == 'location'}">Địa chỉ</option>
+                    </select>
+                    <input style="width: 360px;" type="text" name="search" class="form-control ms-2" placeholder="Tìm kiếm" th:value="${search}">
+                    <button style="height: 39px; text-align: center
+                        ; border-radius: 7px" type="submit" class="btn btn-primary ms-2">Tìm kiếm</button>
+                </form>
+                <table class="table" border="1">
+                    <thead>
+                    <tr>
+                        <th>Hình ảnh</th>
+                        <th>Tên khách sạn</th>
+                        <th>Địa chỉ</th>
+                        <th>Mô tả</th>
+                        <th>Tên vùng</th>
+                        <th>Chức năng</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="hotel : ${hotelPage.content}">
+                        <td>
+                            <img th:src="@{/fe/img/{img}(img=${hotel.imageUrl})}" alt="Hotel Image" class="img-thumbnail" style="width: 100px; height: 70px">
+                        </td>
+                        <td th:text="${hotel.hotelName}"></td>
+                        <td th:text="${hotel.location}"></td>
+                        <td th:text="${hotel.description}"></td>
+                        <td th:text="${hotel.region.regionName}"></td>
+                        <td>
+                            <a th:href="@{/admin/hotels/edit/{id}(id=${hotel.id})}" class="btn btn-warning">Sửa</a>
+                            <a th:href="@{/admin/hotels/delete/{id}(id=${hotel.id})}" class="btn btn-danger">Xoá</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <nav>
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item" th:classappend="${hotelPage.hasPrevious() ? '' : 'disabled'}">
+                            <a class="page-link" th:href="@{/admin/hotels(page=${hotelPage.number - 1}, search=${search}, searchBy=${searchBy})}" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+
+                        <li class="page-item" th:each="i : ${#numbers.sequence(0, hotelPage.totalPages - 1)}" th:classappend="${i == hotelPage.number ? ' active' : ''}">
+                            <a class="page-link" th:href="@{/admin/hotels(page=${i}, search=${search}, searchBy=${searchBy})}" th:text="${i + 1}"></a>
+                        </li>
+
+                        <li class="page-item" th:classappend="${hotelPage.hasNext() ? '' : 'disabled'}">
+                            <a class="page-link" th:href="@{/admin/hotels(page=${hotelPage.number + 1}, search=${search}, searchBy=${searchBy})}" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/assets/vendor/jquery/jquery.min.js}"></script>
+<script th:src="@{/assets/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/assets/vendor/jquery-easing/jquery.easing.min.js}"></script>
+<script th:src="@{/assets/js/sb-admin-2.min.js}"></script>
+<script th:src="@{/assets/vendor/chart.js/Chart.min.js}"></script>
+<script th:src="@{/assets/js/demo/chart-area-demo.js}"></script>
+<script th:src="@{/assets/js/demo/chart-pie-demo.js}"></script>
+</body>
+</html>
+

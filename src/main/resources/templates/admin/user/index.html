@@ -11,15 +11,16 @@
         <div id="content">
             <div th:replace="admin/fragments/header::header"></div>
             <div class="container-fluid">
-                <h1>Manage Users</h1>
-                <a href="/admin/users/add" class="btn-add">Add New User</a>
+                <h1>Quản lý khách hàng</h1>
+                <a href="/admin/users/add" class="btn-add">Thêm
+                    mới</a>
                 <table>
                     <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Full Name</th>
+                        <th>Tên khách hàng</th>
                         <th>Email</th>
-                        <th>Actions</th>
+                        <th>Chức năng</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -28,9 +29,9 @@
                         <td th:text="${user.fullName}"></td>
                         <td th:text="${user.email}"></td>
                         <td class="action-buttons">
-                            <a th:href="@{/admin/users/edit/{id}(id=${user.id})}" class="edit">Edit</a>
+                            <a th:href="@{/admin/users/edit/{id}(id=${user.id})}" class="edit">Sửa</a>
                             <a th:href="@{/admin/users/delete/{id}(id=${user.id})}" class="delete"
-                               onclick="return confirm('Are you sure you want to delete this user?')">Delete</a>
+                               onclick="return confirm('Are you sure you want to delete this user?')">Xoá</a>
                         </td>
                     </tr>
                     </tbody>

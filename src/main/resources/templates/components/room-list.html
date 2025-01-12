@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="roomList">
+    <div class="row">
+        <!-- Loop over rooms and display according to selected floor -->
+        <div class="col-md-4 mb-4" th:each="room : ${rooms}">
+            <div class="card" th:classappend="${room.isAvailable} ? 'bg-success' : 'bg-secondary'">
+                <img th:src="@{/fe/img/{img}(img=${room.imageUrl})}" class="card-img-top" alt="Room Image" style="width: 414px; height: 276px">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${room.roomNumber}"></h5>
+                    <p th:text="${room.roomType}"></p>
+                    <p><strong>Price: </strong><span th:text="${room.price}"></span></p>
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#roomDetailsModal"
+                            th:data-roomid="${room.id}" th:data-roomtype="${room.roomType}" th:data-roomprice="${room.price}"
+                            th:data-roomdescription="${room.description}" th:data-roomimage="${room.imageUrl}">
+                        View Room
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

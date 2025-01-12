@@ -42,19 +42,19 @@ public class AdminRegionController {
             Path filePath = Paths.get(uploadDir,fileName);
             Files.createDirectories(filePath.getParent());
             Files.write(filePath, file.getBytes());
-            region.setImage(fileName);
+            region.setRegionImg(fileName);
         }
         adminRegionService.saveRegion(region);
         return "redirect:/admin/regions";
     }
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable("id") Integer id, Model model) {
-        Region region = adminRegionService.getRegionId(id); // Lấy vùng miền từ DB
+        Region region = adminRegionService.getRegionId(id);
         if (region == null) {
             throw new IllegalArgumentException("Invalid region ID: " + id);
         }
-        model.addAttribute("region", region); // Đưa dữ liệu vào model
-        return "admin/regions/edit"; // Trả về form chỉnh sửa
+        model.addAttribute("region", region);
+        return "admin/regions/edit";
     }
     @PostMapping("/edit/{id}")
     public String editRegion(@PathVariable Integer id,
@@ -69,7 +69,7 @@ public class AdminRegionController {
             Path filePath = Paths.get(uploadDir, fileName);
             Files.createDirectories(filePath.getParent());
             Files.write(filePath, file.getBytes());
-            existingRegion.setImage(fileName);
+            existingRegion.setRegionImg(fileName);
         }
         existingRegion.setRegionName(region.getRegionName());
         existingRegion.setDescription(region.getDescription());

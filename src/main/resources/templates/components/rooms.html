@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="layout/head::head">
+<body>
+<div th:replace="layout/topbar::topbar"></div>
+<div th:replace="layout/navbar::navbar"></div>
+<div class="container py-5">
+  <div class="row">
+    <div class="col-md-4" th:each="room : ${rooms}">
+      <div class="room-card">
+        <!--                <img th:src="@{/fe/img/{img}(img=${room.imageUrl})}" alt="Room Image" class="room-image">-->
+        <div th:if="${room.imageUrl != null}">
+          <img th:src="@{/fe/img/{img}(img=${room.imageUrl})}" alt="Room Image" class="img-fluid" style="width: 414px; height: 276px"/>
+        </div>
+        <div th:if="${room.imageUrl == null}">
+          <p>No image available for this room.</p>
+        </div>
+        <div class="room-info">
+          <h3 th:text="${room.roomNumber}">Room Number</h3>
+          <p th:text="${room.roomType}">Room Type</p>
+          <p><strong>Giá 1 ngày: </strong><span th:text="${room.price}">Price</span> VNĐ</p>
+          <p th:text="${room.description}">Description</p>
+          <p><strong>Diện tích:</strong> <span th:text="${room.area}">Area</span> m²</p>
+          <p><strong>Tầng:</strong> <span th:text="${room.floor}">Area</span></p>
+          <p><strong>Khách sạn:</strong> <span th:text="${room.hotel.hotelName}">Area</span></p>
+          <p><strong>Địa chỉ:</strong> <span th:text="${room.hotel.location}">Area</span></p>
+        </div>
+        <button th:if="${!room.isAvailable}" class="btn btn-secondary" disabled>Room Not Available</button>
+        <a th:if="${room.isAvailable}" th:href="@{/rooms/booking/{roomId}(roomId=${room.id})}" class="btn btn-primary">Book Now</a>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  <!-- function checkLoginStatus() {
+    fetch('/api/currentUser')
+            .then(response => {
+              if (response.ok) {
+                return response.json();
+              } else {
+                window.location.href = '/auth/login';
+              }
+            })
+            .catch(error => {
+              window.location.href = '/auth/login';
+            });
+  } -->
+  function bookRoom(roomId) {
+    // Thực hiện hành động đặt phòng, ví dụ chuyển hướng tới trang đặt phòng với roomId
+    window.location.href = '/rooms/booking/' + roomId;  // Đảm bảo đường dẫn đúng
+  }
+</script>
+</body>
+</html>

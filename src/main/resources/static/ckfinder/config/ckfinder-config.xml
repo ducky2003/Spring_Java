@@ -1,0 +1,8 @@
+<Configuration>
+    <Backends>
+        <Backend name="default" type="local">
+            <BaseUrl>/uploads/</BaseUrl>
+            <RootPath>/uploads/</RootPath>
+        </Backend>
+    </Backends>
+</Configuration>

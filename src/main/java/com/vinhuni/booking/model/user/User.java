@@ -3,8 +3,10 @@ package com.vinhuni.booking.model.user;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -14,10 +16,10 @@ import java.util.Set;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "UserID", nullable = false)
-    private Integer id;
+    @Column(name = "User_ID", nullable = false)
+    private Long id;
 
-    @Column(name = "Full_Name", nullable = false)
+    @Column(name = "Full_Name", nullable = true)
     private String fullName;
 
     @Column(name = "Email", nullable = false, length = 100)
@@ -43,30 +45,72 @@ public class User {
     @Column(name = "Address", length = 4500)
     private String address;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
-    private Set<UserRole> userRoles;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Role> roles = new HashSet<>();
+
+    @Column(name = "username", nullable = false, length = 100)
+    private String username;
+
+    @Column(name = "enabled")
+    private Boolean enabled;
+    @PrePersist
+    public void prePersist() {
+        if (this.enabled == null) {
+            this.enabled = true;
+        }
+    }
+
     public User(){
         super();
     }
 
-    public User(Integer id, String fullName, String email, String password, String phoneNumber, Instant createdAt, Instant updatedAt, Boolean gender, String address, Set<UserRole> userRoles) {
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    public User(Long id, String fullName, String email, String password, String phoneNumber, Boolean gender, String address, Set<Role> roles, String username, Boolean enabled) {
         this.id = id;
         this.fullName = fullName;
         this.email = email;
         this.password = password;
         this.phoneNumber = phoneNumber;
-//        this.created_at = createdAt;
-//        this.updated_at = updatedAt;
         this.gender = gender;
         this.address = address;
-        this.userRoles = userRoles;
+        this.roles = roles;
+        this.username = username;
+        this.enabled = enabled;
     }
 
-    public Integer getId() {
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -132,13 +176,5 @@ public class User {
 
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    public Set<UserRole> getUserRoles() {
-        return userRoles;
-    }
-
-    public void setUserRoles(Set<UserRole> userRoles) {
-        this.userRoles = userRoles;
     }
 }

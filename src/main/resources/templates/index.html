@@ -21,7 +21,7 @@
 <!-- Navbar & Hero End -->
 
 <!-- About Start -->
-<div class="container-fluid about py-5">
+<!-- <div class="container-fluid about py-5">
     <div class="container py-5">
         <div class="row g-5 align-items-center">
             <div class="col-lg-5">
@@ -58,28 +58,26 @@
             </div>
         </div>
     </div>
-</div>
+</div>-->
 <!-- About End -->
 
 <!-- Services Start -->
 <div class="container-fluid bg-light service py-5">
     <div class="container py-5">
         <div class="mx-auto text-center mb-5" style="max-width: 900px;">
-            <h5 class="section-title px-3">Searvices</h5>
-            <h1 class="mb-0">Our Services</h1>
+            <h5 class="section-title px-3">Dịch vụ</h5>
+            <h1 class="mb-0">Dịch vụ mà các khách sạn đang có</h1>
         </div>
         <div class="row g-4">
             <div class="col-lg-6" th:each="service : ${services}" th:attr="data-wow-delay=${0.1 + (0.2 * serviceStat.index)}">
                 <div class="row g-4">
                     <div class="col-12">
-                        <div class="service-content-inner d-flex align-items-center bg-white border border-primary rounded p-4 pe-0">
-                            <div class="service-content text-end">
+                        <div class="d-flex align-items-center bg-white border border-primary rounded p-4">
+                            <!-- Icon -->
+                            <!-- Content -->
+                            <div class="flex-grow-1 ms-4">
                                 <h5 th:text="${service.name}" class="mb-4">Service Name</h5>
-                                <p th:text="${service.description}" class="mb-0"> Service Description
-                                </p>
-                            </div>
-                            <div class="service-icon p-4">
-                                <i class="fa fa-globe fa-4x text-primary" th:class="'fa fa-3x ' + ${service.icon}"></i>
+                                <p th:text="${service.description}" class="mb-0">Service Description</p>
                             </div>
                         </div>
                     </div>
@@ -87,7 +85,7 @@
             </div>
             <div class="col-12">
                 <div class="text-center">
-                    <a class="btn btn-primary rounded-pill py-3 px-5 mt-2" href="/services">Service More</a>
+                    <a class="btn btn-primary rounded-pill py-3 px-5 mt-2" href="/services">Xem thêm</a>
                 </div>
             </div>
         </div>
@@ -99,8 +97,8 @@
 <div class="container-fluid destination py-5">
     <div class="container py-5">
         <div class="mx-auto text-center mb-5" style="max-width: 900px;">
-            <h5 class="section-title px-3">Destination</h5>
-            <h1 class="mb-0">Popular Destination</h1>
+            <h5 class="section-title px-3">Địa điểm</h5>
+            <h1 class="mb-0">Các địa điểm khách sạn </h1>
         </div>
         <div class="tab-class text-center">
             <div class="tab-content">
@@ -111,14 +109,14 @@
                             <div class="row g-4">
                                 <div th:each="region, stat : ${regions}" th:if="${stat.index < 4}" class="col-lg-6">
                                     <div class="destination-img">
-                                        <img style="width: 416px; height: 217px" class="img-fluid rounded w-100" th:src="@{/fe/img/{img}(img=${region.image})}" alt="Region Image">
+                                        <img style="width: 416px; height: 217px" class="img-fluid rounded w-100" th:src="@{/fe/img/{img}(img=${region.regionImg})}" alt="Region Image">
                                         <div class="destination-overlay p-4">
-                                            <a th:text="${region.hotelCount + ' Hotels'}" href="#" class="btn btn-primary text-white rounded-pill border py-2 px-3">Hotels</a>
+                                            <a th:text="${region.hotelCount + ' Khách sạn'}" href="#" class="btn btn-primary text-white rounded-pill border py-2 px-3">Khách sạn</a>
                                             <h4 class="text-white mb-2 mt-3" th:text="${region.regionName}">Region Name</h4>
-                                            <a th:href="@{'/hotels/' + ${region.id}}" class="btn-hover text-white">View All Place <i class="fa fa-arrow-right ms-2"></i></a>
+                                            <a th:href="@{'/hotels/' + ${region.id}}" class="btn-hover text-white">Xem tất cả <i class="fa fa-arrow-right ms-2"></i></a>
                                         </div>
                                         <div class="search-icon">
-                                            <a th:href="@{/fe/img/{img}(img=${region.image})}" data-lightbox="destination">
+                                            <a th:href="@{/fe/img/{img}(img=${region.regionImg})}" data-lightbox="destination">
                                                 <i class="fa fa-plus-square fa-1x btn btn-light btn-lg-square text-primary"></i>
                                             </a>
                                         </div>
@@ -129,14 +127,14 @@
                         <!-- Bên phải: 1 ảnh lớn -->
                         <div class="col-xl-4">
                             <div class="destination-img h-100">
-                                <img class="img-fluid rounded w-100 h-100" th:src="@{/fe/img/{img}(img=${regions[4].image})}" style="object-fit: cover; min-height: 300px; width: 416px; height: 217px" alt="Region Image">
+                                <img class="img-fluid rounded w-100 h-100" th:src="@{/fe/img/{img}(img=${regions[4].regionImg})}" style="object-fit: cover; min-height: 300px; width: 416px; height: 217px" alt="Region Image">
                                 <div class="destination-overlay p-4">
-                                    <a href="#" class="btn btn-primary text-white rounded-pill border py-2 px-3" th:text="${regions[4].hotelCount + ' Hotels'}">Hotels</a>
+                                    <a href="#" class="btn btn-primary text-white rounded-pill border py-2 px-3" th:text="${regions[4].hotelCount + ' Khách sạn'}">Khách sạn</a>
                                     <h4 class="text-white mb-2 mt-3" th:text="${regions[4].regionName}">Region Name</h4>
-                                    <a th:href="@{'/hotels/' + ${regions[4].id}}" class="btn-hover text-white">View All Place <i class="fa fa-arrow-right ms-2"></i></a>
+                                    <a th:href="@{'/hotels/' + ${regions[4].id}}" class="btn-hover text-white">Xem tất cả <i class="fa fa-arrow-right ms-2"></i></a>
                                 </div>
                                 <div class="search-icon">
-                                    <a th:href="@{/fe/img/{img}(img=${regions[4].image})}" data-lightbox="destination">
+                                    <a th:href="@{/fe/img/{img}(img=${regions[4].regionImg})}" data-lightbox="destination">
                                         <i class="fa fa-plus-square fa-1x btn btn-light btn-lg-square text-primary"></i>
                                     </a>
                                 </div>
@@ -151,186 +149,29 @@
 <!-- Destination End -->
 
 <!-- Explore Tour Start -->
-<div class="container-fluid ExploreTour py-5">
+<!--<div class="container-fluid ExploreTour py-5">
     <div class="container py-5">
         <div class="mx-auto text-center mb-5" style="max-width: 900px;">
-            <h5 class="section-title px-3">Explore Tour</h5>
-            <h1 class="mb-4">The World</h1>
-            <p class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum tempore nam, architecto doloremque velit explicabo? Voluptate sunt eveniet fuga eligendi! Expedita laudantium fugiat corrupti eum cum repellat a laborum quasi.
-            </p>
+            <h5 class="section-title px-3">Member Ship Plan</h5>
+            <h1 class="mb-4">All Our Member Ship Plan</h1>
+            <p class="mb-0"></p>
         </div>
         <div class="tab-class text-center">
-            <ul class="nav nav-pills d-inline-flex justify-content-center mb-5">
-                <li class="nav-item">
-                    <a class="d-flex mx-3 py-2 border border-primary bg-light rounded-pill active" data-bs-toggle="pill" href="#NationalTab-1">
-                        <span class="text-dark" style="width: 250px;">National Tour Category</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="d-flex py-2 mx-3 border border-primary bg-light rounded-pill" data-bs-toggle="pill" href="#InternationalTab-2">
-                        <span class="text-dark" style="width: 250px;">International tour Category</span>
-                    </a>
-                </li>
-            </ul>
             <div class="tab-content">
                 <div id="NationalTab-1" class="tab-pane fade show p-0 active">
                     <div class="row g-4">
-                        <div class="col-md-6 col-lg-4">
+                        <div th:each="memberships, stat : ${memberships}" class="col-md-4">
                             <div class="national-item">
-                                <img src="img/explore-tour-1.jpg" class="img-fluid w-100 rounded" alt="Image">
+                                <img th:src="@{/fe/img/{img}(img=${memberships.image})}" class="img-fluid w-100 rounded" alt="Image">
                                 <div class="national-content">
                                     <div class="national-info">
-                                        <h5 class="text-white text-uppercase mb-2">Weekend Tour</h5>
-                                        <a href="#" class="btn-hover text-white">View All Place <i class="fa fa-arrow-right ms-2"></i></a>
+                                        <h5 class="text-white text-uppercase mb-2" th:text="${memberships.name}"></h5>
+                                        <a href="#" class="btn-hover text-white">View More Detail <i class="fa fa-arrow-right ms-2"></i></a>
                                     </div>
                                 </div>
                                 <div class="national-plus-icon">
                                     <a href="#" class="my-auto"><i class="fas fa-link fa-2x text-white"></i></a>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-4">
-                            <div class="national-item">
-                                <img src="img/explore-tour-2.jpg" class="img-fluid w-100 rounded" alt="Image">
-                                <div class="national-content">
-                                    <div class="national-info">
-                                        <h5 class="text-white text-uppercase mb-2">Holiday Tour</h5>
-                                        <a href="#" class="btn-hover text-white">View All Place <i class="fa fa-arrow-right ms-2"></i></a>
-                                    </div>
-                                </div>
-                                <div class="national-plus-icon">
-                                    <a href="#" class="my-auto"><i class="fas fa-link fa-2x text-white"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-4">
-                            <div class="national-item">
-                                <img src="img/explore-tour-3.jpg" class="img-fluid w-100 rounded" alt="Image">
-                                <div class="national-content">
-                                    <div class="national-info">
-                                        <h5 class="text-white text-uppercase mb-2">Road Trip</h5>
-                                        <a href="#" class="btn-hover text-white">View All Place <i class="fa fa-arrow-right ms-2"></i></a>
-                                    </div>
-                                </div>
-                                <div class="tour-offer bg-info">15% Off</div>
-                                <div class="national-plus-icon">
-                                    <a href="#" class="my-auto"><i class="fas fa-link fa-2x text-white"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-4">
-                            <div class="national-item">
-                                <img src="img/explore-tour-4.jpg" class="img-fluid w-100 rounded" alt="Image">
-                                <div class="national-content">
-                                    <div class="national-info">
-                                        <h5 class="text-white text-uppercase mb-2">Historical Trip</h5>
-                                        <a href="#" class="btn-hover text-white">View All Place <i class="fa fa-arrow-right ms-2"></i></a>
-                                    </div>
-                                </div>
-                                <div class="national-plus-icon">
-                                    <a href="#" class="my-auto"><i class="fas fa-link fa-2x text-white"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-4">
-                            <div class="national-item">
-                                <img src="img/explore-tour-5.jpg" class="img-fluid w-100 rounded" alt="Image">
-                                <div class="national-content">
-                                    <div class="national-info">
-                                        <h5 class="text-white text-uppercase mb-2">Family Tour</h5>
-                                        <a href="#" class="btn-hover text-white">View All Place <i class="fa fa-arrow-right ms-2"></i></a>
-                                    </div>
-                                </div>
-                                <div class="tour-offer bg-warning">50% Off</div>
-                                <div class="national-plus-icon">
-                                    <a href="#" class="my-auto"><i class="fas fa-link fa-2x text-white"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-4">
-                            <div class="national-item">
-                                <img src="img/explore-tour-6.jpg" class="img-fluid w-100 rounded" alt="Image">
-                                <div class="national-content">
-                                    <div class="national-info">
-                                        <h5 class="text-white text-uppercase mb-2">Beach Tour</h5>
-                                        <a href="#" class="btn-hover text-white">View All Place <i class="fa fa-arrow-right ms-2"></i></a>
-                                    </div>
-                                </div>
-                                <div class="national-plus-icon">
-                                    <a href="#" class="my-auto"><i class="fas fa-link fa-2x text-white"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div id="InternationalTab-2" class="tab-pane fade show p-0">
-                    <div class="InternationalTour-carousel owl-carousel">
-                        <div class="international-item">
-                            <img src="img/explore-tour-1.jpg" class="img-fluid w-100 rounded" alt="Image">
-                            <div class="international-content">
-                                <div class="international-info">
-                                    <h5 class="text-white text-uppercase mb-2">Australia</h5>
-                                    <a href="#" class="btn-hover text-white me-4"><i class="fas fa-map-marker-alt me-1"></i> 8 Cities</a>
-                                    <a href="#" class="btn-hover text-white"><i class="fa fa-eye ms-2"></i> <span>143+ Tour Places</span></a>
-                                </div>
-                            </div>
-                            <div class="tour-offer bg-success">30% Off</div>
-                            <div class="international-plus-icon">
-                                <a href="#" class="my-auto"><i class="fas fa-link fa-2x text-white"></i></a>
-                            </div>
-                        </div>
-                        <div class="international-item">
-                            <img src="img/explore-tour-2.jpg" class="img-fluid w-100 rounded" alt="Image">
-                            <div class="international-content">
-                                <div class="international-info">
-                                    <h5 class="text-white text-uppercase mb-2">Germany</h5>
-                                    <a href="#" class="btn-hover text-white me-4"><i class="fas fa-map-marker-alt me-1"></i> 12 Cities</a>
-                                    <a href="#" class="btn-hover text-white"><i class="fa fa-eye ms-2"></i> <span>21+ Tour Places</span></a>
-                                </div>
-                            </div>
-                            <div class="international-plus-icon">
-                                <a href="#" class="my-auto"><i class="fas fa-link fa-2x text-white"></i></a>
-                            </div>
-                        </div>
-                        <div class="international-item">
-                            <img src="img/explore-tour-3.jpg" class="img-fluid w-100 rounded" alt="Image">
-                            <div class="international-content">
-                                <div class="tour-offer bg-warning">45% Off</div>
-                                <div class="international-info">
-                                    <h5 class="text-white text-uppercase mb-2">Spain</h5>
-                                    <a href="#" class="btn-hover text-white me-4"><i class="fas fa-map-marker-alt me-1"></i> 9 Cities</a>
-                                    <a href="#" class="btn-hover text-white"><i class="fa fa-eye ms-2"></i> <span>133+ Tour Places</span></a>
-                                </div>
-                            </div>
-                            <div class="international-plus-icon">
-                                <a href="#" class="my-auto"><i class="fas fa-link fa-2x text-white"></i></a>
-                            </div>
-                        </div>
-                        <div class="international-item">
-                            <img src="img/explore-tour-4.jpg" class="img-fluid w-100 rounded" alt="Image">
-                            <div class="international-content">
-                                <div class="international-info">
-                                    <h5 class="text-white text-uppercase mb-2">Japan</h5>
-                                    <a href="#" class="btn-hover text-white me-4"><i class="fas fa-map-marker-alt me-1"></i> 8 Cities</a>
-                                    <a href="#" class="btn-hover text-white"><i class="fa fa-eye ms-2"></i> <span>137+ Tour Places</span></a>
-                                </div>
-                            </div>
-                            <div class="international-plus-icon">
-                                <a href="#" class="my-auto"><i class="fas fa-link fa-2x text-white"></i></a>
-                            </div>
-                        </div>
-                        <div class="international-item">
-                            <img src="img/explore-tour-5.jpg" class="img-fluid w-100 rounded" alt="Image">
-                            <div class="international-content">
-                                <div class="tour-offer bg-info">70% Off</div>
-                                <div class="international-info">
-                                    <h5 class="text-white text-uppercase mb-2">London</h5>
-                                    <a href="#" class="btn-hover text-white me-4"><i class="fas fa-map-marker-alt me-1"></i> 17 Cities</a>
-                                    <a href="#" class="btn-hover text-white"><i class="fa fa-eye ms-2"></i> <span>26+ Tour Places</span></a>
-                                </div>
-                            </div>
-                            <div class="international-plus-icon">
-                                <a href="#" class="my-auto"><i class="fas fa-link fa-2x text-white"></i></a>
                             </div>
                         </div>
                     </div>
@@ -338,145 +179,53 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 <!-- Explore Tour Start -->
 
 <!-- Packages Start -->
 <div class="container-fluid packages py-5">
     <div class="container py-5">
         <div class="mx-auto text-center mb-5" style="max-width: 900px;">
-            <h5 class="section-title px-3">Packages</h5>
-            <h1 class="mb-0">Awesome Packages</h1>
+            <h5 class="section-title px-3">Khách sạn</h5>
+            <h1 class="mb-0">Khám phá tất cả khách sạn</h1>
+            <form method="get" th:action="@{/home}">
+                <div class="row" style="margin: 20px; padding-left: 190px">
+                    <div class="col-md-4" style="width: 400px">
+                        <input type="text" name="keyword" placeholder="Tìm kiếm theo tên và địa chỉ..." class="form-control" th:value="${keyword}">
+                    </div>
+                    <div class="col-md-2">
+                        <button type="submit" class="btn btn-primary">Tìm</button>
+                    </div>
+                </div>
+            </form>
         </div>
+        <!-- Packages Carousel -->
         <div class="packages-carousel owl-carousel">
-            <div class="packages-item">
+            <div class="packages-item" th:each="hotel : ${hotels}">
                 <div class="packages-img">
-                    <img src="img/packages-4.jpg" class="img-fluid w-100 rounded-top" alt="Image">
+                    <img th:src="@{/fe/img/{img}(img=${hotel.imageUrl})}" class="img-fluid w-100 rounded-top" alt="Hotel Image" style="width: 415px; height: 415px">
                     <div class="packages-info d-flex border border-start-0 border-end-0 position-absolute" style="width: 100%; bottom: 0; left: 0; z-index: 5;">
-                        <small class="flex-fill text-center border-end py-2"><i class="fa fa-map-marker-alt me-2"></i>Venice - Italy</small>
-                        <small class="flex-fill text-center border-end py-2"><i class="fa fa-calendar-alt me-2"></i>3 days</small>
-                        <small class="flex-fill text-center py-2"><i class="fa fa-user me-2"></i>2 Person</small>
+                        <small class="flex-fill text-center border-end py-2"><i class="fa fa-map-marker-alt me-2"></i><span th:text="${hotel.location}"></span></small>
+                        <small class="flex-fill text-center border-end py-2"><i class="fa fa-calendar-alt me-2"></i>Available</small>
+                        <small class="flex-fill text-center py-2"><i class="fa fa-user me-2"></i>For All Guests</small>
                     </div>
-                    <div class="packages-price py-2 px-4">$349.00</div>
+<!--                    <div class="packages-price py-2 px-4" th:text="'$' + ${hotel.price}"></div>-->
                 </div>
                 <div class="packages-content bg-light">
-                    <div class="p-4 pb-0">
-                        <h5 class="mb-0">Venice - Italy</h5>
-                        <small class="text-uppercase">Hotel Deals</small>
+                    <div class="p-4 pb-0" style="height: 200px">
+                        <h5 class="mb-0" th:text="${hotel.hotelName}"></h5>
+                        <small class="text-uppercase">Luxury Stay</small>
                         <div class="mb-3">
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
+                            <small class="fa fa-star text-primary" th:each="i : ${#numbers.sequence(1, hotel.rating)}"></small>
                         </div>
-                        <p class="mb-4">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nesciunt nemo quia quae illum aperiam fugiat voluptatem repellat</p>
+                        <p class="mb-4" th:text="${hotel.description}"></p>
                     </div>
                     <div class="row bg-primary rounded-bottom mx-0">
                         <div class="col-6 text-start px-0">
-                            <a href="#" class="btn-hover btn text-white py-2 px-4">Read More</a>
+                            <a th:href="@{/hotels/details/{id}(id=${hotel.id})}" class="btn-hover btn text-white py-2 px-4">Xem thêm</a>
                         </div>
                         <div class="col-6 text-end px-0">
-                            <a href="#" class="btn-hover btn text-white py-2 px-4">Book Now</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="packages-item">
-                <div class="packages-img">
-                    <img src="img/packages-2.jpg" class="img-fluid w-100 rounded-top" alt="Image">
-                    <div class="packages-info d-flex border border-start-0 border-end-0 position-absolute" style="width: 100%; bottom: 0; left: 0; z-index: 5;">
-                        <small class="flex-fill text-center border-end py-2"><i class="fa fa-map-marker-alt me-2"></i>Venice - Italy</small>
-                        <small class="flex-fill text-center border-end py-2"><i class="fa fa-calendar-alt me-2"></i>3 days</small>
-                        <small class="flex-fill text-center py-2"><i class="fa fa-user me-2"></i>2 Person</small>
-                    </div>
-                    <div class="packages-price py-2 px-4">$449.00</div>
-                </div>
-                <div class="packages-content bg-light">
-                    <div class="p-4 pb-0">
-                        <h5 class="mb-0">The New California</h5>
-                        <small class="text-uppercase">Hotel Deals</small>
-                        <div class="mb-3">
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                        </div>
-                        <p class="mb-4">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nesciunt nemo quia quae illum aperiam fugiat voluptatem repellat</p>
-                    </div>
-                    <div class="row bg-primary rounded-bottom mx-0">
-                        <div class="col-6 text-start px-0">
-                            <a href="#" class="btn-hover btn text-white py-2 px-4">Read More</a>
-                        </div>
-                        <div class="col-6 text-end px-0">
-                            <a href="#" class="btn-hover btn text-white py-2 px-4">Book Now</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="packages-item">
-                <div class="packages-img">
-                    <img src="img/packages-3.jpg" class="img-fluid w-100 rounded-top" alt="Image">
-                    <div class="packages-info d-flex border border-start-0 border-end-0 position-absolute" style="width: 100%; bottom: 0; left: 0; z-index: 5;">
-                        <small class="flex-fill text-center border-end py-2"><i class="fa fa-map-marker-alt me-2"></i>Venice - Italy</small>
-                        <small class="flex-fill text-center border-end py-2"><i class="fa fa-calendar-alt me-2"></i>3 days</small>
-                        <small class="flex-fill text-center py-2"><i class="fa fa-user me-2"></i>2 Person</small>
-                    </div>
-                    <div class="packages-price py-2 px-4">$549.00</div>
-                </div>
-                <div class="packages-content bg-light">
-                    <div class="p-4 pb-0">
-                        <h5 class="mb-0">Discover Japan</h5>
-                        <small class="text-uppercase">Hotel Deals</small>
-                        <div class="mb-3">
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                        </div>
-                        <p class="mb-4">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nesciunt nemo quia quae illum aperiam fugiat voluptatem repellat</p>
-                    </div>
-                    <div class="row bg-primary rounded-bottom mx-0">
-                        <div class="col-6 text-start px-0">
-                            <a href="#" class="btn-hover btn text-white py-2 px-4">Read More</a>
-                        </div>
-                        <div class="col-6 text-end px-0">
-                            <a href="#" class="btn-hover btn text-white py-2 px-4">Book Now</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="packages-item">
-                <div class="packages-img">
-                    <img src="img/packages-1.jpg" class="img-fluid w-100 rounded-top" alt="Image">
-                    <div class="packages-info d-flex border border-start-0 border-end-0 position-absolute" style="width: 100%; bottom: 0; left: 0; z-index: 5;">
-                        <small class="flex-fill text-center border-end py-2"><i class="fa fa-map-marker-alt me-2"></i>Thayland</small>
-                        <small class="flex-fill text-center border-end py-2"><i class="fa fa-calendar-alt me-2"></i>3 days</small>
-                        <small class="flex-fill text-center py-2"><i class="fa fa-user me-2"></i>2 Person</small>
-                    </div>
-                    <div class="packages-price py-2 px-4">$649.00</div>
-                </div>
-                <div class="packages-content bg-light">
-                    <div class="p-4 pb-0">
-                        <h5 class="mb-0">Thayland Trip</h5>
-                        <small class="text-uppercase">Hotel Deals</small>
-                        <div class="mb-3">
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                        </div>
-                        <p class="mb-4">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nesciunt nemo quia quae illum aperiam fugiat voluptatem repellat</p>
-                    </div>
-                    <div class="row bg-primary rounded-bottom mx-0">
-                        <div class="col-6 text-start px-0">
-                            <a href="#" class="btn-hover btn text-white py-2 px-4">Read More</a>
-                        </div>
-                        <div class="col-6 text-end px-0">
-                            <a href="#" class="btn-hover btn text-white py-2 px-4">Book Now</a>
+                            <a th:href="@{/detail-hotel/{hotelId}(hotelId=${hotel.id})}" class="btn-hover btn text-white py-2 px-4">Đặt phòng</a>
                         </div>
                     </div>
                 </div>
@@ -487,7 +236,7 @@
 <!-- Packages End -->
 
 <!-- Gallery Start -->
-<div class="container-fluid gallery py-5 my-5">
+<!--<div class="container-fluid gallery py-5 my-5">
     <div class="mx-auto text-center mb-5" style="max-width: 900px;">
         <h5 class="section-title px-3">Our Gallery</h5>
         <h1 class="mb-4">Tourism & Traveling Gallery.</h1>
@@ -797,7 +546,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 <!-- Gallery End -->
 
 <!-- Tour Booking Start -->
@@ -805,76 +554,72 @@
     <div class="container py-5">
         <div class="row g-5 align-items-center">
             <div class="col-lg-6">
-                <h5 class="section-booking-title pe-3">Booking</h5>
-                <h1 class="text-white mb-4">Online Booking</h1>
-                <p class="text-white mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur maxime ullam esse fuga blanditiis accusantium pariatur quis sapiente, veniam doloribus praesentium? Repudiandae iste voluptatem fugiat doloribus quasi quo iure officia.
-                </p>
-                <p class="text-white mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur maxime ullam esse fuga blanditiis accusantium pariatur quis sapiente, veniam doloribus praesentium? Repudiandae iste voluptatem fugiat doloribus quasi quo iure officia.
-                </p>
-                <a href="#" class="btn btn-light text-primary rounded-pill py-3 px-5 mt-2">Read More</a>
+                <h5 class="section-booking-title pe-3">Tìm phòng</h5>
+                <h1 class="text-white mb-4">Tìm phòng theo mong muốn của bạn</h1>
+
             </div>
             <div class="col-lg-6">
-                <h1 class="text-white mb-3">Book A Tour Deals</h1>
-                <p class="text-white mb-4">Get <span class="text-warning">50% Off</span> On Your First Adventure Trip With Travela. Get More Deal Offers Here.</p>
-                <form>
+                <h1 class="text-white mb-3">Tìm phòng</h1>
+                <form th:action="@{/rooms/search}" method="GET">
                     <div class="row g-3">
+                        <!-- Kiểu Phòng -->
                         <div class="col-md-6">
                             <div class="form-floating">
-                                <input type="text" class="form-control bg-white border-0" id="name" placeholder="Your Name">
-                                <label for="name">Your Name</label>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-floating">
-                                <input type="email" class="form-control bg-white border-0" id="email" placeholder="Your Email">
-                                <label for="email">Your Email</label>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-floating date" id="date3" data-target-input="nearest">
-                                <input type="text" class="form-control bg-white border-0" id="datetime" placeholder="Date & Time" data-target="#date3" data-toggle="datetimepicker" />
-                                <label for="datetime">Date & Time</label>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-floating">
-                                <select class="form-select bg-white border-0" id="select1">
-                                    <option value="1">Destination 1</option>
-                                    <option value="2">Destination 2</option>
-                                    <option value="3">Destination 3</option>
+                                <select class="form-select bg-white border-0" id="roomType" name="roomType">
+                                    <option value="">All</option>
+<!--                                    <option value="single">Single</option>-->
+                                    <option value="double">Double</option>
+                                    <option value="suite">Suite</option>
+                                    <option value="Phòng đơn">Phòng đơn</option>
+                                    <option value="Phòng đôi">Phòng đôi</option>
                                 </select>
-                                <label for="select1">Destination</label>
+
+                                <label for="roomType">Kiểu phòng</label>
                             </div>
                         </div>
+
+                        <!-- Giá từ -->
                         <div class="col-md-6">
                             <div class="form-floating">
-                                <select class="form-select bg-white border-0" id="SelectPerson">
-                                    <option value="1">Persons 1</option>
-                                    <option value="2">Persons 2</option>
-                                    <option value="3">Persons 3</option>
-                                </select>
-                                <label for="SelectPerson">Persons</label>
+                                <input type="number" class="form-control bg-white border-0" id="priceFrom" name="priceFrom" placeholder="Price From">
+                                <label for="priceFrom">Giá tối thiểu</label>
                             </div>
                         </div>
+
+                        <!-- Giá đến -->
                         <div class="col-md-6">
                             <div class="form-floating">
-                                <select class="form-select bg-white border-0" id="CategoriesSelect">
-                                    <option value="1">Kids</option>
-                                    <option value="2">1</option>
-                                    <option value="3">2</option>
-                                    <option value="3">3</option>
-                                </select>
-                                <label for="CategoriesSelect">Categories</label>
+                                <input type="number" class="form-control bg-white border-0" id="priceTo" name="priceTo" placeholder="Price To">
+                                <label for="priceTo">Giá tối đa</label>
                             </div>
                         </div>
+
+                        <!-- Tên khách sạn -->
+                        <div class="col-md-6">
+                            <div class="form-floating">
+                                <input type="text" class="form-control bg-white border-0" id="hotelName" name="hotelName" placeholder="Hotel Name">
+                                <label for="hotelName">Tên khách sạn</label>
+                            </div>
+                        </div>
+
+                        <!-- Địa chỉ khách sạn -->
+                        <div class="col-md-6">
+                            <div class="form-floating">
+                                <input type="text" class="form-control bg-white border-0" id="location" name="location" placeholder="Hotel Address">
+                                <label for="location">Địa chỉ khách sạn</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-floating">
+                                <input type="number" class="form-control bg-white border-0" id="floor" name="floor" placeholder="Tầng">
+                                <label for="floor">Tầng</label>
+                            </div>
+                        </div>
+
+                        <!-- Nút tìm kiếm -->
                         <div class="col-12">
-                            <div class="form-floating">
-                                <textarea class="form-control bg-white border-0" placeholder="Special Request" id="message" style="height: 100px"></textarea>
-                                <label for="message">Special Request</label>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <button class="btn btn-primary text-white w-100 py-3" type="submit">Book Now</button>
+                            <button class="btn btn-primary text-white w-100 py-3" type="submit">Tìm kiếm</button>
                         </div>
                     </div>
                 </form>
@@ -882,10 +627,11 @@
         </div>
     </div>
 </div>
+
 <!-- Tour Booking End -->
 
 <!-- Travel Guide Start -->
-<div class="container-fluid guide py-5">
+<!--<div class="container-fluid guide py-5">
     <div class="container py-5">
         <div class="mx-auto text-center mb-5" style="max-width: 900px;">
             <h5 class="section-title px-3">Travel Guide</h5>
@@ -978,11 +724,11 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 <!-- Travel Guide End -->
 
 <!-- Blog Start -->
-<div class="container-fluid blog py-5">
+<!--div class="container-fluid blog py-5">
     <div class="container py-5">
         <div class="mx-auto text-center mb-5" style="max-width: 900px;">
             <h5 class="section-title px-3">Our Blog</h5>
@@ -1062,11 +808,11 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 <!-- Blog End -->
 
 <!-- Testimonial Start -->
-<div class="container-fluid testimonial py-5">
+<!--<div class="container-fluid testimonial py-5">
     <div class="container py-5">
         <div class="mx-auto text-center mb-5" style="max-width: 900px;">
             <h5 class="section-title px-3">Testimonial</h5>
@@ -1155,11 +901,11 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 <!-- Testimonial End -->
 
 <!-- Subscribe Start -->
-<div class="container-fluid subscribe py-5">
+<!--<div class="container-fluid subscribe py-5">
     <div class="container text-center py-5">
         <div class="mx-auto text-center" style="max-width: 900px;">
             <h5 class="subscribe-title px-3">Subscribe</h5>
@@ -1172,30 +918,14 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 <!-- Subscribe End -->
 
 <!-- Footer Start -->
 <div th:replace="layout/footer :: footer"></div>
 <!-- Footer End -->
 
-<!-- Copyright Start -->
-<div class="container-fluid copyright text-body py-4">
-    <div class="container">
-        <div class="row g-4 align-items-center">
-            <div class="col-md-6 text-center text-md-end mb-md-0">
-                <i class="fas fa-copyright me-2"></i><a class="text-white" href="#">Your Site Name</a>, All right reserved.
-            </div>
-            <div class="col-md-6 text-center text-md-start">
-                <!--/*** This template is free as long as you keep the below author’s credit link/attribution link/backlink. ***/-->
-                <!--/*** If you'd like to use the template without the below author’s credit link/attribution link/backlink, ***/-->
-                <!--/*** you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". ***/-->
-                Designed By <a class="text-white" href="https://htmlcodex.com">HTML Codex</a>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Copyright End -->
+
 
 <!-- Back to Top -->
 <a href="#" class="btn btn-primary btn-primary-outline-0 btn-md-square back-to-top"><i class="fa fa-arrow-up"></i></a>
@@ -1208,7 +938,7 @@
 <script th:src="@{/fe/lib/waypoints/waypoints.min.js}"></script>
 <script th:src="@{/fe/lib/owlcarousel/owl.carousel.min.js}"></script>
 <script th:src="@{/fe/lib/lightbox/js/lightbox.min.js}"></script>
-
+<script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js}"></script>
 
 <!-- Template Javascript -->
 <script th:src="@{/fe/js/main.js}"></script>

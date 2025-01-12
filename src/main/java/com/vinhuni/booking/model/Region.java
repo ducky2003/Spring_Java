@@ -16,7 +16,7 @@ public class Region {
     @Column(name = "Region_ID", nullable = false)
     private Integer id;
 
-    @Column(name = "RegionName", nullable = false, length = 100)
+    @Column(name = "Region_Name", nullable = false, length = 100)
     private String regionName;
 
     @Lob
@@ -24,11 +24,13 @@ public class Region {
     private String description;
     @Transient
     private int hotelCount;
+
+    @Column(name = "region_img", length = 455)
+    private String regionImg;
+
     public Region() {
         super();
     }
-    @Column(name="image")
-    private String image;
     @OneToMany(mappedBy = "region", cascade = CascadeType.ALL)
     private Set<Hotel> hotels;
     @PrePersist
@@ -37,34 +39,16 @@ public class Region {
             this.regionName = "Unnamed Region";
         }
     }
-    public Region(Integer id, String regionName, String description, String image) {
+
+    public Region(Integer id, String regionName, String description, int hotelCount, String regionImg, Set<Hotel> hotels) {
         this.id = id;
         this.regionName = regionName;
         this.description = description;
-        this.image = image;
-    }
-    public int getHotelCount() {
-        return hotelCount;
-    }
-
-    public void setHotelCount(int hotelCount) {
         this.hotelCount = hotelCount;
-    }
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
+        this.regionImg = regionImg;
+        this.hotels = hotels;
     }
 
-    public void setRegionName(String regionName) {
-        this.regionName = regionName;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
     public Set<Hotel> getHotels() {
         return hotels;
     }
@@ -73,4 +57,43 @@ public class Region {
         this.hotels = hotels;
     }
 
+    public String getRegionImg() {
+        return regionImg;
+    }
+
+    public void setRegionImg(String regionImg) {
+        this.regionImg = regionImg;
+    }
+
+    public int getHotelCount() {
+        return hotelCount;
+    }
+
+    public void setHotelCount(int hotelCount) {
+        this.hotelCount = hotelCount;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getRegionName() {
+        return regionName;
+    }
+
+    public void setRegionName(String regionName) {
+        this.regionName = regionName;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 }

@@ -11,16 +11,32 @@
         </div>
         <div class="col-lg-4 text-center text-lg-end">
             <div class="d-inline-flex align-items-center" style="height: 45px;">
-                <a href="#"><small class="me-3 text-light"><i class="fa fa-user me-2"></i>Register</small></a>
-                <a href="#"><small class="me-3 text-light"><i class="fa fa-sign-in-alt me-2"></i>Login</small></a>
-                <div class="dropdown">
-                    <a href="#" class="dropdown-toggle text-light" data-bs-toggle="dropdown"><small><i class="fa fa-home me-2"></i> My Dashboard</small></a>
+                <div th:if="${user == null}">
+                    <a href="#" th:href="@{/auth/register}"><small class="me-3 text-light"><i class="fa fa-user me-2"></i>Register</small></a>
+                    <a href="#" th:href="@{/auth/login}"><small class="me-3 text-light"><i class="fa fa-sign-in-alt me-2"></i>Login</small></a>
+                </div>
+
+                <div th:if="${user != null}">
+                    <small class="me-3 text-light">Hello, <span th:text="${user.fullName}"></span></small>
+
+                    <!-- Hiển thị giỏ hàng và số đơn hàng nếu có -->
+                    <div th:if="${bookings != null and bookings.size() > 0}">
+                        <a href="/cart" class="btn btn-light btn-sm me-3">
+                            <i class="fas fa-shopping-cart"></i> Cart <span class="badge bg-danger" th:text="${bookings.size()}">0</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div th:if="${user != null}" class="dropdown">
+                    <a href="javascript:void(0)" class="dropdown-toggle text-light" data-bs-toggle="dropdown">
+                        <small><i class="fa fa-home me-2"></i> My Dashboard</small>
+                    </a>
                     <div class="dropdown-menu rounded">
-                        <a href="#" class="dropdown-item"><i class="fas fa-user-alt me-2"></i> My Profile</a>
-                        <a href="#" class="dropdown-item"><i class="fas fa-comment-alt me-2"></i> Inbox</a>
-                        <a href="#" class="dropdown-item"><i class="fas fa-bell me-2"></i> Notifications</a>
-                        <a href="#" class="dropdown-item"><i class="fas fa-cog me-2"></i> Account Settings</a>
-                        <a href="#" class="dropdown-item"><i class="fas fa-power-off me-2"></i> Log Out</a>
+                        <a th:href="@{/profile}" class="dropdown-item"><i class="fas fa-user-alt me-2"></i> My Profile</a>
+                        <div th:if="${isAdmin}">
+                            <a th:href="@{/admin}" class="dropdown-item"><i class="fas fa-user-shield me-2"></i> Quản trị</a>
+                        </div>
+                        <a th:href="@{/auth/logout}" class="dropdown-item"><i class="fas fa-power-off me-2"></i> Log Out</a>
                     </div>
                 </div>
             </div>

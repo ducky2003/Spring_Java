@@ -12,4 +12,6 @@ public interface RegionRepository extends JpaRepository<Region, Integer> {
             "FROM Hotel h RIGHT JOIN h.region r " +
             "GROUP BY r.id")
     List<Object[]> getRegionHotelCounts();
+
+    Region findByRegionName(String regionName);
 }

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Fullscreen background with blur effect */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Background image */
+        .background-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('/fe/img/reback.jpg');
+            background-size: cover;
+            background-position: center;
+            filter: blur(8px);
+            z-index: -1;
+        }
+
+        /* Form container */
+        .signup-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            z-index: 1;
+        }
+
+        /* Sign-up form */
+        .signup-form {
+            background-color: rgba(0, 0, 0, 0.7);  /* Darken the form background */
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        /* Form heading */
+        .signup-form h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2rem;
+            color: white;
+        }
+
+        /* Input field */
+        .form-control {
+            margin-bottom: 15px;
+            border-radius: 8px;
+            padding: 10px;
+        }
+
+        /* Submit button */
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+            padding: 10px 20px;
+            width: 100%;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        /* Terms and conditions */
+        .terms {
+            text-align: center;
+            margin-top: 10px;
+            color: white;
+        }
+
+        .terms a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .terms a:hover {
+            text-decoration: underline;
+        }
+
+        /* Validation message */
+        .text-danger {
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Fullscreen background container -->
+<div class="background-container"></div>
+
+<!-- Sign-up container -->
+<div class="signup-container">
+    <form class="signup-form" id="signupForm" action="/auth/register" method="POST">
+        <h2>Sign Up</h2>
+
+        <!-- Email -->
+        <div class="form-group">
+            <label for="email" class="text-white">Email</label>
+            <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email" required>
+            <div class="text-danger" id="emailError"></div>
+        </div>
+
+        <!-- Username -->
+        <div class="form-group">
+            <label for="username" class="text-white">Username</label>
+            <input type="text" id="username" name="username" class="form-control" placeholder="Enter your username" required>
+            <div class="text-danger" id="usernameError"></div>
+        </div>
+
+        <!-- Password -->
+        <div class="form-group">
+            <label for="password" class="text-white">Password</label>
+            <input type="password" id="password" name="password" class="form-control" placeholder="Enter your password" required>
+            <div class="text-danger" id="passwordError"></div>
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="form-group">
+            <label for="confirmPassword" class="text-white">Confirm Password</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" placeholder="Confirm your password" required>
+            <div class="text-danger" id="confirmPasswordError"></div>
+        </div>
+        <div>
+            <label type="hidden" for="roles"></label>
+            <input type="hidden" id="role_user" name="roles" value="ROLE_USER" checked>
+        </div>
+        <button type="submit" class="btn btn-primary">Sign Up</button>
+
+        <div class="terms">
+            <p>By signing up, you agree to our <a href="#">Terms and Conditions</a>.</p>
+        </div>
+        <div class="login-link">
+            <p style="color: white">Already have an account? <a href="/auth/login">Login here</a></p>
+        </div>
+    </form>
+</div>
+
+
+<script>
+    const signupForm = document.getElementById("signupForm");
+    signupForm.addEventListener("submit", function(event) {
+        event.preventDefault();
+        document.getElementById("emailError").textContent = '';
+        document.getElementById("usernameError").textContent = '';
+        document.getElementById("passwordError").textContent = '';
+        document.getElementById("confirmPasswordError").textContent = '';
+        let isValid = true;
+        const email = document.getElementById("email").value;
+        if (!email.includes('@')) {
+            isValid = false;
+            document.getElementById("emailError").textContent = 'Please enter a valid email.';
+        }
+        const username = document.getElementById("username").value;
+        if (username.trim() === '') {
+            isValid = false;
+            document.getElementById("usernameError").textContent = 'Username is required.';
+        }
+        const password = document.getElementById("password").value;
+        if (password.trim() === '') {
+            isValid = false;
+            document.getElementById("passwordError").textContent = 'Password is required.';
+        }
+        const confirmPassword = document.getElementById("confirmPassword").value;
+        if (confirmPassword !== password) {
+            isValid = false;
+            document.getElementById("confirmPasswordError").textContent = 'Passwords do not match.';
+        }
+
+        if (isValid) {
+            signupForm.submit();
+        }
+    });
+    function showErrorModal(message) {
+        document.getElementById("errorMessage").innerText = message;
+        const myModal = new bootstrap.Modal(document.getElementById('errorModal'), {
+            keyboard: false
+        });
+        myModal.show();
+    }
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

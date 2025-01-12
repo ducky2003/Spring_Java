@@ -7,6 +7,7 @@ import org.hibernate.annotations.ColumnDefault;
 
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.List;
 
 @Getter
 @Setter
@@ -15,13 +16,12 @@ import java.time.Instant;
 public class Services {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ServiceID", nullable = false)
+    @Column(name = "Service_ID", nullable = false)
     private Integer id;
 
-    @Column(name = "Name", nullable = false, length = 100)
+    @Column(name = "service_Name", nullable = true, length = 100)
     private String name;
-    @Column(name="icon")
-    private String icon;
+
     @Lob
     @Column(name = "Description")
     private String description;
@@ -33,20 +33,26 @@ public class Services {
     @Column(name = "created_at")
     private Instant createdAt;
 
-    @ColumnDefault("CURRENT_TIMESTAMP")
-    @Column(name = "updated_at")
-    private Instant updatedAt;
     public Services() {
         super();
     }
-    public Services(Integer id, String name, String icon, String description, BigDecimal price, Instant createdAt, Instant updatedAt) {
+
+    public Services(Integer id, String name, String description, BigDecimal price,  Instant createdAt) {
         this.id = id;
         this.name = name;
-        this.icon = icon;
         this.description = description;
         this.price = price;
         this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
+    }
+
+
+
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Instant createdAt) {
+        this.createdAt = createdAt;
     }
 
     public BigDecimal getPrice() {
@@ -63,14 +69,6 @@ public class Services {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getIcon() {
-        return icon;
-    }
-
-    public void setIcon(String icon) {
-        this.icon = icon;
     }
 
     public String getName() {

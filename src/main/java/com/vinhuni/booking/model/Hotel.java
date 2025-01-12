@@ -8,6 +8,8 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.Instant;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -19,64 +21,58 @@ public class Hotel {
     @Column(name = "Hotel_ID", nullable = false)
     private Integer id;
 
-    @Column(name = "Name", nullable = false, length = 100)
-    private String name;
-
-    @Lob
-    @Column(name = "address", nullable = false)
-    private String address;
-
-    @Column(name = "City", nullable = false, length = 50)
-    private String city;
-
     @Lob
     @Column(name = "description")
     private String description;
-
-//    @Column(name = "PhoneNumber", length = 15)
-//    private String phoneNumber;
-    @Column(name = "phone_number")
-    private String phoneNumber;
-    @Column(name = "Email", length = 100)
-    private String email;
-
-    @ColumnDefault("1")
-    @Column(name = "HasServices")
-    private Boolean hasServices;
 
     @ColumnDefault("CURRENT_TIMESTAMP")
     @Column(name = "Created_At")
     private Instant createdAt;
 
-    @ColumnDefault("CURRENT_TIMESTAMP")
-    @Column(name = "Updated_At")
-    private Instant updatedAt;
-
-    @Column(name = "HotelImg", length = 300)
-    private String hotelImg;
-
+    @Column(name = "hotel_name", nullable = false)
+    private String hotelName;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @OnDelete(action = OnDeleteAction.SET_NULL)
-    @JoinColumn(name = "RegionID")
+    @JoinColumn(name = "region_id")
     private Region region;
-    public Hotel(){
+
+    @Column(name = "location", nullable = false)
+    private String location;
+
+    @Column(name = "rating")
+    private Float rating;
+
+    @Column(name = "image_url", nullable = true)
+    private String imageUrl;
+
+    @OneToMany(mappedBy = "hotel")
+    private Set<Article> articles = new LinkedHashSet<>();
+
+    public Hotel() {
         super();
     }
-    public Hotel(Integer id, String name, String address, String city, String description, String phoneNumber, String email, Boolean hasServices, Instant createdAt, Instant updatedAt, String hotelImg, Boolean hasServices1, String hotelImg1, String phoneNumber1, Region regionID) {
-        this.id = id;
-        this.name = name;
-        this.address = address;
-        this.city = city;
-        this.description = description;
-        this.phoneNumber = phoneNumber;
-        this.email = email;
-        this.hasServices = hasServices;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-        this.hotelImg = hotelImg;
 
-        this.region = regionID;
+//    public Hotel(Integer id, String description, Instant createdAt, String hotelName, Region region, String location, Float rating, String imageUrl) {
+//        this.id = id;
+//        this.description = description;
+//        this.createdAt = createdAt;
+//        this.hotelName = hotelName;
+//        this.region = region;
+//        this.location = location;
+//        this.rating = rating;
+//        this.imageUrl = imageUrl;
+//    }
+
+    public Hotel(Integer id, String description, Instant createdAt, String hotelName, Region region, String location, Float rating, String imageUrl, Set<Article> articles) {
+        this.id = id;
+        this.description = description;
+        this.createdAt = createdAt;
+        this.hotelName = hotelName;
+        this.region = region;
+        this.location = location;
+        this.rating = rating;
+        this.imageUrl = imageUrl;
+        this.articles = articles;
     }
 
     public Integer getId() {
@@ -87,30 +83,6 @@ public class Hotel {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -119,61 +91,59 @@ public class Hotel {
         this.description = description;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public Boolean getHasServices() {
-        return hasServices;
-    }
-
-    public void setHasServices(Boolean hasServices) {
-        this.hasServices = hasServices;
-    }
-
     public Instant getCreatedAt() {
         return createdAt;
+    }
+
+    public Set<Article> getArticles() {
+        return articles;
+    }
+
+    public void setArticles(Set<Article> articles) {
+        this.articles = articles;
     }
 
     public void setCreatedAt(Instant createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Instant getUpdatedAt() {
-        return updatedAt;
+    public String getHotelName() {
+        return hotelName;
     }
 
-    public void setUpdatedAt(Instant updatedAt) {
-        this.updatedAt = updatedAt;
+    public void setHotelName(String hotelName) {
+        this.hotelName = hotelName;
     }
 
-    public String getHotelImg() {
-        return hotelImg;
-    }
-
-    public void setHotelImg(String hotelImg) {
-        this.hotelImg = hotelImg;
-    }
-
-
-
-    public Region getRegionID() {
+    public Region getRegion() {
         return region;
     }
 
-    public void setRegionID(Region regionID) {
-        this.region = regionID;
+    public void setRegion(Region region) {
+        this.region = region;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public Float getRating() {
+        return rating;
+    }
+
+    public void setRating(Float rating) {
+        this.rating = rating;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }
